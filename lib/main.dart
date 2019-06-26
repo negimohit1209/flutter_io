@@ -4,8 +4,8 @@ import 'dart:io';
 import 'package:path_provider/path_provider.dart';
 
 void main() async {
-  var data = await readData(); 
-  if(data != null){
+  var data = await readData();
+  if (data != null) {
     String message = await readData();
     print(message);
   }
@@ -49,7 +49,20 @@ class _HomeState extends State<Home> {
                   Padding(
                     padding: EdgeInsets.all(14.5),
                   ),
-                  Text('save data goes here')
+                  FutureBuilder(
+                    future: readData(),
+                    builder: (BuildContext context, AsyncSnapshot<String> data){
+                      if(data.hasData != null){
+                        return Text(data.data.toString(),
+                        style: TextStyle(
+                          color: Colors.blueAccent,
+                           
+                        ));
+                      }else{
+                        return Text('no data saved');
+                      }
+                    }
+                  )
                 ],
               ),
             ),
